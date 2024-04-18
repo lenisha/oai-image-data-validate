@@ -1,0 +1,4 @@
+{"image_url": {"data:image/png;path": "./drugclaim.png"},"type_of_claim":"Drug", "total": "19.88","provider_name":"ABC Pharmacy","provider_address":"123 Main st Anytown USA 12345"}
+{"image_url": {"data:image/png;path": "./receiptclaim.png"},"type_of_claim":"Healthcare", "total": "113","provider_name":" Thai Oasis","provider_address":"Milton Mall 55 Ontario st S A1 Milton Ontario L9T 2M3"}
+{"image_url": {"data:image/png;path": "./drugclaim2.png"},"type_of_claim":"Drug", "total": "5.61","provider_name":"Rexall Pharmacy","provider_address":"1 Promenade Circle, Thornhill, ON L4J 4P8"}
+{"image_url": {"data:image/png;path": "./britebitedental.png"},"type_of_claim":"Dental", "total": "705.00","provider_name":" Brite Bite Kids Dental","provider_address":"1460 Major Mackenzie Drive W Unit 3, Vaughan, ON L6A 4H6"}
