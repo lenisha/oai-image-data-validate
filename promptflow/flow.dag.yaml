@@ -1,0 +1,102 @@
+id: count-cars
+name: Count Cars
+inputs:
+  image_1:
+    type: image
+    default: receiptclaim.png
+    is_chat_input: false
+outputs:
+  validation_summary:
+    type: string
+    reference: ${format_response_llm.output.validation_summary}
+  response:
+    type: string
+    reference: ${load_json.output}
+  fraud:
+    type: string
+    reference: ${format_response_llm.output.fraud}
+  total:
+    type: string
+    reference: ${load_json.output.total}
+  fraud_confidence:
+    type: string
+    reference: ${format_response_llm.output.fraud_confidence}
+  provider_address:
+    type: string
+    reference: ${load_json.output.provider_address}
+  provider_name:
+    type: string
+    reference: ${load_json.output.provider_name}
+  type_of_claim:
+    type: string
+    reference: ${load_json.output.type_of_claim}
+  fraud_explanation:
+    type: string
+    reference: ${format_response_llm.output.fraud_explanation}
+nodes:
+- name: llm_system_prompt
+  type: prompt
+  source:
+    type: code
+    path: llm_system_prompt.jinja2
+  inputs: {}
+  use_variants: false
+- name: GPT4V_AOAI_1
+  type: custom_llm
+  source:
+    type: package_with_prompt
+    path: GPT4V_AOAI_1.jinja2
+    tool: promptflow.tools.aoai_gpt4v.AzureOpenAI.chat
+  inputs:
+    connection: OpenAIWestUS
+    deployment_name: gpt-4-vision
+    max_tokens: 1500
+    system_message: ${llm_system_prompt.output}
+    image_input: ${inputs.image_1}
+  use_variants: false
+- name: load_json
+  type: python
+  source:
+    type: code
+    path: load_json.py
+  inputs:
+    input1: ${GPT4V_AOAI_1.output}
+  use_variants: false
+- name: validate_prompt
+  type: prompt
+  source:
+    type: code
+    path: llm_validate_prompt.jinja2
+  inputs:
+    data: ${load_json.output}
+  use_variants: false
+- name: validate_data_llm
+  type: python
+  source:
+    type: code
+    path: validate_data_llm.py
+  inputs:
+    oaiConn: OpenAIWestUS
+    sys_prompt: ${validate_prompt.output}
+    deployment_name: gpt-4-turbo
+  use_variants: false
+- name: execute_tools
+  type: python
+  source:
+    type: code
+    path: execute_tools.py
+  inputs:
+    response: ${validate_data_llm.output}
+    sys_prompt: ${validate_prompt.output}
+  use_variants: false
+- name: format_response_llm
+  type: python
+  source:
+    type: code
+    path: format_response_llm.py
+  inputs:
+    oaiConn: OpenAIWestUS
+    deployment_name: gpt-4-turbo
+    messages: ${execute_tools.output}
+  use_variants: false
+node_variants: {}
