@@ -6,7 +6,7 @@ This workflow is designed to automate the counting of red cars in two separate i
 - **Python tool**
 
 ## Prerequisites for Executing the Flow
-- **Images**: Two images containing various cars, among which the number of red cars needs to be counted.
+- **Image*: Images containing various claims to be analyzed.
 - **Azure OpenAI Access**: Necessary credentials and access rights to Azure OpenAI GPT-4 Turbo with Vision.
 
 ## Process Overview
@@ -18,3 +18,10 @@ This workflow is designed to automate the counting of red cars in two separate i
 - Integrating Azure OpenAI GPT-4 Turbo with Vision for specific image analysis tasks.
 - Handling and parsing JSON data.
 - Scripting to aggregate data from multiple sources.
+
+How to do tools/functions calling:
+https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/function-calling?tabs=python-new
+https://learn.microsoft.com/en-us/azure/machine-learning/prompt-flow/tools-reference/azure-open-ai-gpt-4v-tool?view=azureml-api-2
+
+https://learn.microsoft.com/en-us/azure/ai-studio/how-to/flow-process-image
+

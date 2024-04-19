@@ -13,10 +13,16 @@ def parse_json_string(json_string):
 
 def validate_address(address, provider_name=""):
     """validate addresss"""
-    address_info = {
-        "valid": "true",
-        "reason": f"provider {provider_name} exists at the given address"
-    }
+    if address.contains("12345"):
+        address_info = {
+            "valid": "false",
+            "reason": "provider does not exist at the given address"
+        }
+    else:    
+        address_info = {
+            "valid": "true",
+            "reason": f"provider {provider_name} exists at the given address"
+        }
     return json.dumps(address_info)
 
 
