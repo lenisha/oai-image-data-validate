@@ -13,7 +13,7 @@ def parse_json_string(json_string):
 
 def validate_address(address, provider_name=""):
     """validate addresss"""
-    if address.contains("12345"):
+    if "12345" in address:
         address_info = {
             "valid": "false",
             "reason": "provider does not exist at the given address"
@@ -28,10 +28,16 @@ def validate_address(address, provider_name=""):
 
 def validate_DIN(DIN):
     """validate DIN"""
-    din_info = {
-        "valis": "true",
-        "reason": "din found in database"
-    }
+    if "10001-0022-20" in DIN:
+        din_info = {
+            "valid": "false",
+            "reason": "din NOT found in drug database"
+        }
+    else:     
+        din_info = {
+            "valid": "true",
+            "reason": "din found in drug database"
+        }
     return json.dumps(din_info)
 
 
